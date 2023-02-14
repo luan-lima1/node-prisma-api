@@ -1,3 +1,5 @@
+import { MissingParamError } from "../../../config/error/missing-param-error";
+import { badRequest } from "../../../config/helper/http-helper";
 import {
   IhttpRequest,
   IhttpResponse,
@@ -7,20 +9,14 @@ import {
 export class SignUpController implements ISignupController {
   Handle(httpRequest: IhttpRequest): IhttpResponse {
     if (!httpRequest.body.name) {
-      return {
-        statusCode: 400,
-        body: new Error("Missing Param: name"),
-      };
+      return badRequest(new MissingParamError("name"));
     }
     if (!httpRequest.body.email) {
-      return {
-        statusCode: 400,
-        body: new Error("Missing Param: email"),
-      };
+      return badRequest(new MissingParamError("email"));
     }
     return {
       statusCode: 400,
-      body: new Error("Error"),
+      body: new MissingParamError("error"),
     };
   }
 }
