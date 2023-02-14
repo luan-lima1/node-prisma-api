@@ -8,5 +8,5 @@ export interface IhttpRequest {
 }
 
 export interface ISignupController {
-  Handle(httpRequest: IhttpRequest): IhttpResponse;
+  Handle(httpRequest: IhttpRequest): IhttpResponse | undefined;
 }
