@@ -1,3 +1,6 @@
+import { ServiceError } from "../../../config/error";
+import { MissingParamError } from "../../../config/error/missing-param-error";
+import { badRequest } from "../../../config/helper/http-helper";
 import {
   IhttpRequest,
   IhttpResponse,
@@ -6,21 +9,15 @@ import {
 
 export class SignUpController implements ISignupController {
   Handle(httpRequest: IhttpRequest): IhttpResponse {
-    if (!httpRequest.body.name) {
-      return {
-        statusCode: 400,
-        body: new Error("Missing Param: name"),
-      };
-    }
-    if (!httpRequest.body.email) {
-      return {
-        statusCode: 400,
-        body: new Error("Missing Param: email"),
-      };
+    const requiredFields = ["name", "email", "password"];
+    for (const field of requiredFields) {
+      if (!httpRequest.body[field]) {
+        return badRequest(new MissingParamError(field));
+      }
     }
     return {
       statusCode: 400,
-      body: new Error("Error"),
+      body: console.error(),
     };
   }
 }
