@@ -1,3 +1,5 @@
+import { NextFunction, Request, Response } from "express";
+
 export interface IhttpResponse {
   statusCode: number;
   body: any;
@@ -8,5 +10,5 @@ export interface IhttpRequest {
 }
 
 export interface ISignupController {
-  Handle(httpRequest: IhttpRequest): IhttpResponse | undefined;
+  Handle(httpRequest: IhttpRequest): IhttpResponse | any;
 }
